@@ -77,8 +77,27 @@ One server, three interfaces:
 - **REST**: `/api/ingest`, `/api/query`, `/api/remember`, `/api/graph`, `/api/audit`
 - **CLI**: `jarvis-kb init|ingest|compile|query|audit|serve`
 
-### Implementation Notes
-The reference implementation may use a Rust core engine for the schema, job queue, graph, and API surface, with Python satellite processes for document extraction and LLM client glue. This maximizes performance where it matters and leverages Python's ecosystem where it dominates.
+## Implementation Notes
+
+### Language Strategy: Rust Core + Python Satellites
+
+The Mnemosyne architecture is **language-agnostic** — the schema, APIs, and lifecycle defined above can be implemented in any language. However, the reference implementation targets a **hybrid architecture** that maximizes performance and ecosystem leverage:
+
+| Layer | Recommended Language | Rationale |
+|---|---|---|
+| **Core engine** (schema, job queue, graph, API surface) | **Rust** | Memory safety, zero-cost async (Tokio), type-safe APIs, single-binary deployment |
+| **Document extractors** (PDF, DOCX, video, audio) | **Python** | Mature libraries (`pymupdf`, `python-docx`, Whisper, yt-dlp) with no Rust equivalents |
+| **LLM client glue** | **Rust or Python** | HTTP calls to Ollama; Rust's `reqwest` is sufficient, Python's `httpx` is more ergonomic for streaming |
+| **CLI** | **Rust** | `clap` + `serde` compiles to a single binary with no Python environment |
+
+### Communication Model
+
+The Rust core spawns Python satellite processes for document extraction:
+
+```bash
+# Rust calls Python extractor, receives JSON RawDocument
+python -m mnemosyne_py.extract pdf file.pdf --output json
+
 ## Concurrency Model
 A priority job queue prevents Ollama deadlock:
 1. Chat queries (interactive, latency-sensitive)

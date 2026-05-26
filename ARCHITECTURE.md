@@ -77,6 +77,8 @@ One server, three interfaces:
 - **REST**: `/api/ingest`, `/api/query`, `/api/remember`, `/api/graph`, `/api/audit`
 - **CLI**: `jarvis-kb init|ingest|compile|query|audit|serve`
 
+### Implementation Notes
+The reference implementation may use a Rust core engine for the schema, job queue, graph, and API surface, with Python satellite processes for document extraction and LLM client glue. This maximizes performance where it matters and leverages Python's ecosystem where it dominates.
 ## Concurrency Model
 A priority job queue prevents Ollama deadlock:
 1. Chat queries (interactive, latency-sensitive)

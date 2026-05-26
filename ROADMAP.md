@@ -14,6 +14,8 @@
 - [ ] Markdown ingestion + raw page creation
 - [ ] Two-tier compilation engine (fast extract → heavy write)
 - [ ] Basic MCP server with `kb_search` and `kb_ask`
+- [ ] [Architecture] Rust core + Python satellites — feasibility discussion
+Body: "Should the reference implementation use Rust for the core engine? Discuss trade-offs here.
 
 ## Phase 2: Quality & Scale
 - [ ] PDF/DOCX ingestion (pluggable extractors)

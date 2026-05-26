@@ -1,0 +1,30 @@
+jarvis_kb:
+  foundry:
+    synto_vault: ~/jarvis-foundry/synto
+    synthadoc_vault: ~/jarvis-foundry/synthadoc
+    ollama_url: http://localhost:11434
+    models:
+      fast: gemma4:e4b
+      heavy: qwen2.5:14b
+
+  frontline:
+    unified_vault: ~/jarvis-frontline/kb
+    llm_wiki_vault: ~/jarvis-frontline/llm-wiki
+    link_vault: ~/.link/wikis/jarvis
+    ollama_url: http://localhost:11435   # same as foundry if single-node
+    models:
+      chat: qwen3:30b-a3b
+
+  proxy:
+    mode: queue            # "queue" for single-node priority, "router" for dual-node
+    bind_host: 127.0.0.1
+    bind_port: 11436       # your Jarvis apps point here instead of :11434
+    priority_timeout:
+      chat: 60
+      compile: 600
+      lint: 300
+
+  sync:
+    strategy: copy           # copy, rsync, or git
+    publish_branch: main
+    auto_publish_on_compile: false

@@ -15,6 +15,26 @@ This project needs contributors in the following areas:
 - **Obsidian / UI Developer**: Plugin compatibility, web visualization
 - **Technical Writer**: Documentation, examples, tutorials
 
+## Skills that would help
+
+### Core Engine (Rust)
+- Rust 1.78+ with Tokio async
+- `rusqlite` (WAL mode, connection pooling)
+- `axum` or `actix-web` (MCP + REST server)
+- `petgraph` or similar (in-memory graph traversal)
+- `clap` + `serde` (CLI and pack export)
+
+### Document Extraction (Python)
+- Python 3.11+
+- `pymupdf`, `pdfplumber`, or `unstructured` (PDF)
+- `python-docx`, `python-pptx` (Office formats)
+- `openai-whisper`, `yt-dlp` (audio/video transcripts)
+
+### Integration
+- Ollama or local LLM tooling
+- MCP SDK (any language)
+- SQLite schema design and migration systems
+
 ## How to contribute at this stage
 
 1. **Review the spec**: Open an issue if a data model or API feels wrong.

@@ -20,9 +20,10 @@ This project needs contributors in the following areas:
 1. **Review the spec**: Open an issue if a data model or API feels wrong.
 2. **Prototype**: If you want to start coding, open a draft PR against Phase 1.
 3. **Spread the word**: If you know a developer who hates glue code, send them here.
-
+4. **Rust developers**: the core engine (SQLite, job queue, graph, API) is an ideal Rust problem. We are open to a Rust-core implementation if you are willing to build the FFI bridge to Python extractors.
+   
 ## Governance (for now)
 
-- [@yourusername] maintains the spec and roadmap.
+- noirblue maintains the spec and roadmap.
 - Major architectural changes require discussion in GitHub Issues.
 - Code contributions fall under MIT license.

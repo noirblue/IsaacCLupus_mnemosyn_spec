@@ -57,11 +57,12 @@ We are seeking core contributors to begin implementation.
 ## Quick Links
 
 - [Why this is necessary](MOTIVATION.md)
-- [System Architecture](ARCHITECTURE.md)
-- [Technical Specification](SPECIFICATION.md)
-- [Development Roadmap](ROADMAP.md)
-- [Comparison with existing tools](COMPARISON.md)
-- [Prior experiment: v0 glue layer](experiments/v0-glue/)
+- [Technical Specification](./SPECIFICATION.md) — **Canonical spec** for current architecture
+- [Integration Roadmap (Draft)](./MNEMOSYNE_SPEC_v0.2.md) — v0.2: external concepts for future phases
+- [System Architecture](./ARCHITECTURE.md) — 7-layer design and diagrams
+- [Development Roadmap](./ROADMAP.md) — Implementation phases and status
+- [Comparison with existing tools](./COMPARISON.md) — How Mnemosyne maps to Synto, Synthadoc, etc.
+- [Prior experiment: v0 glue layer](./prior-art/v0-glue/) — The ~450-line integration that inspired this
 
 ## License
 

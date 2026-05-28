@@ -2,7 +2,9 @@ mnemosyne/                    # or jarvis-kb-os, omniscience, cortex-mem
 ├── README.md                 # The pitch — why this must exist
 ├── MOTIVATION.md             # The pain — screenshots of the 4-repo glue hell
 ├── ARCHITECTURE.md           # The blueprint — the 7-layer design
-├── SPECIFICATION.md          # The contract — data models, APIs, file formats
+├── SPECIFICATION.md          # Canonical technical spec (current)
+├── MNEMOSYNE_SPEC_v0.1.md    # Superseded: original architecture (historical)
+├── MNEMOSYNE_SPEC_v0.2.md    # Draft: integration roadmap for Phases 2–4
 ├── ROADMAP.md                # How to get there without boiling the ocean
 ├── COMPARISON.md             # How existing tools map to this (Synto, Synthadoc, etc.)
 ├── CONTRIBUTING.md           # What skills you are looking for
@@ -82,6 +84,15 @@ A priority job queue prevents Ollama deadlock:
 1. Chat queries (interactive, latency-sensitive)
 2. Compilation (batch, GPU-heavy)
 3. Lint/Audit (background, deferrable)
+
+### Schema DDL
+
+The canonical schema is defined in [`schema/001-init.sql`](./schema/001-init.sql). 
+Apply it with:
+
+```bash
+sqlite3 ~/jarvis-kb/state.db < schema/001-init.sql
+```
 
 ## Diagrams
 

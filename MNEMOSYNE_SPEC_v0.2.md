@@ -1,3 +1,12 @@
+> **DRAFT — Integration Roadmap (v0.2)**
+> This document proposes future integrations from four adjacent knowledge-OS projects.
+> It is **NOT** the current canonical specification. For the maintained technical spec,
+> see `SPECIFICATION.md`. For implementation status, see `ROADMAP.md`.
+>
+> Status: Draft for Review | Target Phases: 2–4 | Date: 2026-05-28
+
+---
+
 # MNEMOSYNE SPEC — v0.2 DRAFT
 ## Integration Roadmap: External Concepts from Knowledge-OS Ecosystem
 **Date:** 2026-05-28 | **Status:** Draft for Review | **Previous:** v0.1 (2026-05-27)
@@ -344,4 +353,4 @@ The following are **non-negotiable** and not modified by any integration:
 
 ---
 
-*This is a living document. v0.3 will incorporate implementation feedback and schema refinements.*
+*This is a draft document for review. Stable concepts will migrate to `SPECIFICATION.md` when approved for implementation.*

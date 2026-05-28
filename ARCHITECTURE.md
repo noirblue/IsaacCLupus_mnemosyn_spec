@@ -77,29 +77,30 @@ One server, three interfaces:
 - **REST**: `/api/ingest`, `/api/query`, `/api/remember`, `/api/graph`, `/api/audit`
 - **CLI**: `jarvis-kb init|ingest|compile|query|audit|serve`
 
-## Implementation Notes
-
-### Language Strategy: Rust Core + Python Satellites
-
-The Mnemosyne architecture is **language-agnostic** — the schema, APIs, and lifecycle defined above can be implemented in any language. However, the reference implementation targets a **hybrid architecture** that maximizes performance and ecosystem leverage:
-
-| Layer | Recommended Language | Rationale |
-|---|---|---|
-| **Core engine** (schema, job queue, graph, API surface) | **Rust** | Memory safety, zero-cost async (Tokio), type-safe APIs, single-binary deployment |
-| **Document extractors** (PDF, DOCX, video, audio) | **Python** | Mature libraries (`pymupdf`, `python-docx`, Whisper, yt-dlp) with no Rust equivalents |
-| **LLM client glue** | **Rust or Python** | HTTP calls to Ollama; Rust's `reqwest` is sufficient, Python's `httpx` is more ergonomic for streaming |
-| **CLI** | **Rust** | `clap` + `serde` compiles to a single binary with no Python environment |
-
-### Communication Model
-
-The Rust core spawns Python satellite processes for document extraction:
-
-```bash
-# Rust calls Python extractor, receives JSON RawDocument
-python -m mnemosyne_py.extract pdf file.pdf --output json
-
 ## Concurrency Model
 A priority job queue prevents Ollama deadlock:
 1. Chat queries (interactive, latency-sensitive)
 2. Compilation (batch, GPU-heavy)
 3. Lint/Audit (background, deferrable)
+
+## Diagrams
+
+### System Overview
+![System Overview](assets/diagram-overview.png)
+*Agents as clients of the OS — three interfaces (MCP, REST, CLI), five agent types, one vault, one schema.*
+
+### 7-Layer Architecture
+![7-Layer Architecture](assets/diagram-layers.png)
+*Vertical stack from Vault (Layer 0) to API Surface (Layer 7). Data flows upward for queries and downward for ingestion/compilation. Agents interact only at Layer 7.*
+
+### Content Lifecycle
+![Content Lifecycle](assets/diagram-content-lifecycle.png)
+*The "happy path" of a raw source through Mnemosyne: ingest → compile → audit → publish → query. Rejected drafts loop back for recompilation. Every stage is logged to `audit_log`.*
+
+### Unified Schema
+![Unified Schema](assets/diagram-schema-erd.png)
+*Six logical tables in `state.db` replacing four separate databases. Foreign keys link `links` and `contradictions` to `pages`, and `audit_log` to `jobs`.*
+
+### Agent Memory Lifecycle
+![Agent Memory Lifecycle](assets/diagram-memory-lifecycle.png)
+*From agent proposal (`kb_remember`) to committed knowledge: `propose` → `inbox/` → `audit` → `committed/` → `archived/`. Human approval gates at inbox and commit stages. Auto-approve is configurable per namespace.*
